@@ -1,3 +1,4 @@
+using FluentValidation;
 using FluentValidation.AspNetCore;
 using FluentValidationApp;
 using FluentValidationApp.Controllers;
@@ -12,6 +13,32 @@ using System.Text.Json.Serialization;
 
 var builder = WebApplication.CreateBuilder(args);
 ConfigurationManager configuration = builder.Configuration;
+
+
+
+
+
+
+//fluent validation configs 
+builder.Services.AddFluentValidation(config =>
+{
+    config.DisableDataAnnotationsValidation= true;
+
+}).AddFluentValidation();
+builder.Services.Configure<ApiBehaviorOptions>(options =>
+{
+
+});
+builder.Services.AddValidatorsFromAssemblyContaining<RegisterStudentValidator>();
+// with this core all validator classes in this assembelly will be configed in program.cs
+
+
+
+
+
+
+
+
 
 
 //builder.Services.AddControllers();
@@ -81,3 +108,4 @@ public class ModelStateValidator
         return apiActionResult;
     }
 }
+
